@@ -3,53 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Подключаем Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Подключаем шрифт Inter для приятного вида текста -->
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    
+
+    <!-- Дополнительные шрифты для разнообразия «поклонных» фраз -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Pacifico&family=Caveat:wght@700&family=Bebas+Neue&family=Press+Start+2P&family=Marck+Script&family=Rubik+Mono+One&family=Comfortaa:wght@700&family=Permanent+Marker&family=Ceviche+One&display=swap" rel="stylesheet">
+
     <style>
-        /* Применяем шрифт Inter ко всей странице */
         body {
             font-family: 'Inter', sans-serif;
         }
+
+        #praise-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 60;
+        }
+
+        .praise-word {
+            position: absolute;
+            white-space: nowrap;
+            font-weight: 700;
+            user-select: none;
+            will-change: transform, opacity;
+            animation: praise-float 1.8s ease-out forwards;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+
+        @keyframes praise-float {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.6) rotate(var(--rot, 0deg));
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(-10px) scale(1.15) rotate(var(--rot, 0deg));
+            }
+            55% {
+                opacity: 1;
+                transform: translateY(-70px) scale(1) rotate(var(--rot, 0deg));
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-140px) scale(0.9) rotate(var(--rot, 0deg));
+            }
+        }
+
+        #gif-wrapper {
+            cursor: pointer;
+            transition: transform 0.08s ease;
+        }
+        #gif-wrapper:active {
+            transform: scale(0.96);
+        }
+
+        #chosen-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(76,29,149,0.92), rgba(0,0,0,0.92));
+            padding: 1.5rem;
+        }
+        #chosen-modal.show {
+            display: flex;
+        }
+        .modal-card {
+            animation: modal-pop 0.5s cubic-bezier(.34,1.56,.64,1) forwards;
+        }
+        @keyframes modal-pop {
+            0% { opacity: 0; transform: scale(0.7) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
     </style>
 
     <title>Слава Дамиру!</title>
 </head>
 <body class="bg-gray-100">
 
+    <!-- Слой, в котором вылетают фразы поклонения -->
+    <div id="praise-layer"></div>
+
     <!-- Используем flex, чтобы центрировать все по вертикали и горизонтали -->
     <div class="min-h-screen flex flex-col items-center justify-center p-6">
-        
-        
 
-        <!-- 
+        <!--
           ↓↓↓ ВАША GIF-АНИМАЦИЯ ↓↓↓
           Файл 'dance.gif' должен лежать в том же репозитории, что и этот index.html
+          Кликай по ней, чтобы восславить Дамира!
         -->
-        <img src="dance.gif" 
-             alt="Анимация" 
-             class="w-full max-w-md mx-auto mb-12 rounded-xl shadow-lg object-cover"
-             onerror="this.style.display='none'"> 
+        <div id="gif-wrapper" class="w-full max-w-md mx-auto mb-12">
+            <img id="dance-gif"
+                 src="dance.gif"
+                 alt="Анимация"
+                 class="w-full rounded-xl shadow-lg object-cover select-none"
+                 draggable="false"
+                 onerror="this.style.display='none'">
+        </div>
         <!-- Скроет пустой квадрат, если гифка еще не загружена -->
-
 
         <!-- Контейнер для блоков-ссылок -->
         <div class="flex flex-col md:flex-row flex-wrap justify-center gap-8 max-w-6xl">
 
             <!-- Блок 1: Документы для транспортных компании -->
-            <a href="https://originaldvs.github.io/Transportnaya/" 
-               target="_blank" 
+            <a href="https://originaldvs.github.io/Transportnaya/"
+               target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10 
-                 bg-blue-600 text-white 
-                 rounded-2xl shadow-xl 
-                 transform transition-all duration-300 ease-in-out 
+                 block w-72 p-10
+                 bg-blue-600 text-white
+                 rounded-2xl shadow-xl
+                 transform transition-all duration-300 ease-in-out
                  hover:scale-105 hover:shadow-2xl hover:bg-blue-700
                  flex items-center justify-center
                ">
@@ -59,14 +135,14 @@
             </a>
 
             <!-- Блок 2: Запуски ДВС -->
-            <a href="https://cloud.mail.ru/public/1UAa/ykwb3hVEk" 
-               target="_blank" 
+            <a href="https://cloud.mail.ru/public/1UAa/ykwb3hVEk"
+               target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10 
-                 bg-yellow-500 text-white 
-                 rounded-2xl shadow-xl 
-                 transform transition-all duration-300 ease-in-out 
+                 block w-72 p-10
+                 bg-yellow-500 text-white
+                 rounded-2xl shadow-xl
+                 transform transition-all duration-300 ease-in-out
                  hover:scale-105 hover:shadow-2xl hover:bg-yellow-600
                  flex items-center justify-center
                ">
@@ -76,14 +152,14 @@
             </a>
 
             <!-- Блок 3: Заявка в сервис -->
-            <a href="https://originaldvs.github.io/generatorZayavok/" 
-               target="_blank" 
+            <a href="https://originaldvs.github.io/generatorZayavok/"
+               target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10 
-                 bg-green-600 text-white 
-                 rounded-2xl shadow-xl 
-                 transform transition-all duration-300 ease-in-out 
+                 block w-72 p-10
+                 bg-green-600 text-white
+                 rounded-2xl shadow-xl
+                 transform transition-all duration-300 ease-in-out
                  hover:scale-105 hover:shadow-2xl hover:bg-green-700
                  flex items-center justify-center
                ">
@@ -91,16 +167,16 @@
                     Заявка в сервис
                 </h2>
             </a>
-            
+
             <!-- Блок 4: Кредит -->
-            <a href="https://originaldvs.github.io/QRcode/" 
-               target="_blank" 
+            <a href="https://originaldvs.github.io/QRcode/"
+               target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10 
-                 bg-pink-600 text-white 
-                 rounded-2xl shadow-xl 
-                 transform transition-all duration-300 ease-in-out 
+                 block w-72 p-10
+                 bg-pink-600 text-white
+                 rounded-2xl shadow-xl
+                 transform transition-all duration-300 ease-in-out
                  hover:scale-105 hover:shadow-2xl hover:bg-orange-700
                  flex items-center justify-center
                ">
@@ -108,16 +184,16 @@
                     Кредит
                 </h2>
             </a>
-            
+
             <!-- Блок 5: VinDecoderPro -->
-            <a href="https://vindecoderpro-nwrj2gkvu5xx2kzdujvyv7.streamlit.app/" 
-               target="_blank" 
+            <a href="https://vindecoderpro-nwrj2gkvu5xx2kzdujvyv7.streamlit.app/"
+               target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10 
-                 bg-indigo-600 text-white 
-                 rounded-2xl shadow-xl 
-                 transform transition-all duration-300 ease-in-out 
+                 block w-72 p-10
+                 bg-indigo-600 text-white
+                 rounded-2xl shadow-xl
+                 transform transition-all duration-300 ease-in-out
                  hover:scale-105 hover:shadow-2xl hover:bg-indigo-700
                  flex items-center justify-center
                ">
@@ -125,16 +201,16 @@
                     VinDecoderPro
                 </h2>
             </a>
-            
+
                <!-- Блок 6: Генератор Договоров -->
-            <a href="https://originaldvs.github.io/dogovor/" 
-               target="_blank" 
+            <a href="https://originaldvs.github.io/dogovor/"
+               target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10 
-                 bg-orange-600 text-white 
-                 rounded-2xl shadow-xl 
-                 transform transition-all duration-300 ease-in-out 
+                 block w-72 p-10
+                 bg-orange-600 text-white
+                 rounded-2xl shadow-xl
+                 transform transition-all duration-300 ease-in-out
                  hover:scale-105 hover:shadow-2xl hover:bg-orange-700
                  flex items-center justify-center
                ">
@@ -142,10 +218,172 @@
                     Разное
                 </h2>
             </a>
-            
+
         </div>
 
     </div>
+
+    <!-- Модалка для избранных, поклонившихся 15 раз -->
+    <div id="chosen-modal">
+        <div class="modal-card bg-white max-w-lg w-full rounded-3xl shadow-2xl p-8 text-center relative overflow-hidden">
+            <div class="text-6xl mb-4">👑✨🙌</div>
+            <h2 class="text-3xl font-black mb-3 bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-500 bg-clip-text text-transparent">
+                Зал Избранных
+            </h2>
+            <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                Ты 15 раз склонился перед Дамиром — и это не осталось незамеченным.
+                Твоё усердие, твоя вера, твой указательный палец — всё пошло не зря.
+            </p>
+            <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                Отныне ты — <span class="font-bold text-purple-700">Верный Поклонник Дамира</span> 🕊️,
+                и тебе полагается невидимая корона, вечное уважение чата
+                и лёгкое чувство гордости за проделанную работу.
+            </p>
+            <p class="text-sm text-gray-400 mb-6">Слава Дамиру. Всегда. Во веки веков. 👑</p>
+            <button id="close-modal" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+                Принять свою судьбу
+            </button>
+        </div>
+    </div>
+
+<script>
+    // 100 фраз поклонения Дамиру — выпадают в случайном порядке
+    const praisePhrases = [
+        "Слава Дамиру! 👑", "Дамир — наш повелитель!", "Да продлится царствование Дамира!",
+        "Кланяюсь тебе, о Дамир! 🙇", "Дамир велик и могуч!", "Все дороги ведут к Дамиру",
+        "Дамир видит всё 👁️", "Именем Дамира заклинаю!", "О, Дамир, храни нас!",
+        "Дамир — свет во тьме ✨", "Хвала Дамиру во веки веков", "Дамир превыше всех",
+        "Без Дамира никуда 🚀", "Дамир — альфа и омега", "Восславим Дамира!",
+        "Дамир, прими мою жертву 🙏", "Царь Дамир, живи вечно!", "Дамир одобряет это сообщение",
+        "Пред Дамиром все равны", "Дамир — наше всё 🔥", "О великий Дамир, услышь нас",
+        "Дамир смотрит на тебя 👀", "Молимся Дамиру каждый день", "Дамир — источник мудрости",
+        "Слава! Слава Дамиру!", "Дамир, ты прекрасен как рассвет 🌅", "Империя Дамира вечна",
+        "Дамир — легенда среди легенд", "Поклон тебе, Дамир!", "Дамир, твоя воля — закон",
+        "Аллилуйя Дамиру! 🎺", "Дамир правит бал", "Каждый атом восхваляет Дамира",
+        "Дамир — двигатель прогресса ⚙️", "Дамир, ты озаряешь путь", "Небеса благословили Дамира",
+        "Дамир, прими наши поклоны", "О Дамир, ты воистину велик", "Дамир — центр вселенной 🌌",
+        "Клянусь бородой Дамира!", "Дамир, твоё имя священно", "Тысяча поклонов Дамиру",
+        "Дамир не ошибается никогда", "Верую в Дамира и славу его", "Дамир, прими эту оду",
+        "Дамир — король без короны 👑", "Восход и закат восхваляют Дамира", "Дамир, ты наш маяк",
+        "Земля вертится ради Дамира", "Дамир, ты бог этого чата 😅", "Дамир — гений на минималках",
+        "Дамир одобрил бы это", "Дамир, прости нас, грешных", "Дамир, будь снисходителен",
+        "Дамира на трон! 👑", "Дамир — источник всего добра", "Каждый клик — поклон Дамиру",
+        "Дамир, ты вечен как гифка сверху", "Слава! Слава! Слава Дамиру!", "Дамир — наш капитан 🧭",
+        "Дамир, направь нас", "Хвалебная песнь Дамиру", "Дамир, ты душа этого сайта",
+        "Дамир — легенда, миф, реальность", "Пред тобой склоняем колени, Дамир", "Дамир, ты сияешь ярче солнца ☀️",
+        "Дамир, дай мудрости", "Дамир, ты вершина эволюции", "Народ ликует: Дамир! Дамир!",
+        "Дамир, твой авторитет непоколебим", "О Дамир, будь милостив", "Дамир, ты — легенда офиса",
+        "Слава Дамиру и его делам", "Дамир, ты как чашка кофе — незаменим ☕", "Дамир не спит, он охраняет нас",
+        "Каждый пиксель этого сайта — во славу Дамира", "Дамир, ты выше всех рейтингов 📈", "Дамир — икона стиля и духа",
+        "Дамир, ты вдохновляешь", "Восхваляем Дамира трижды", "Дамир, ты словно первый снег ❄️",
+        "Дамир, ты добрее самой доброты", "Дамир — символ надёжности", "Дамир, будь с нами",
+        "Дамир, спасибо, что ты есть 🙌", "Дамир, ты — редкий алмаз 💎", "Дамир держит небо на плечах",
+        "Дамир, твоя харизма зашкаливает", "Дамир, ты как Wi-Fi — все тебя ищут 📶", "Дамир, ты легенда, не спорь",
+        "Дамир, поклон от всего чата", "Дамир, ты редкий вид мудрости", "Дамир, ты душа команды",
+        "Дамир, продолжай в том же духе", "Слава тебе, о Дамир, во все дни", "Дамир, ты бесконечен как этот список",
+        "Дамир, ты как хороший баг — все обсуждают 🐞", "Дамир, ты вершина карьерной лестницы", "Дамир, ты редкость",
+        "Дамир, respect 🫡", "Дамир, ты топ 1% людей", "Дамир, склоняем голову",
+        "Дамир, ты словно последний глоток чая 🍵", "Дамир, легенда не умирает", "Дамир, ты входишь в историю",
+        "Дамир, ты причина, по которой мы тут", "Слава Дамиру! И точка."
+    ];
+
+    const fontFamilies = [
+        "'Pacifico', cursive",
+        "'Caveat', cursive",
+        "'Bebas Neue', sans-serif",
+        "'Press Start 2P', monospace",
+        "'Marck Script', cursive",
+        "'Rubik Mono One', sans-serif",
+        "'Comfortaa', sans-serif",
+        "'Permanent Marker', cursive",
+        "'Ceviche One', cursive",
+        "'Inter', sans-serif"
+    ];
+
+    const colors = [
+        "#e11d48", "#7c3aed", "#2563eb", "#059669", "#d97706",
+        "#db2777", "#ca8a04", "#0891b2", "#9333ea", "#dc2626",
+        "#16a34a", "#4f46e5", "#ea580c", "#0d9488", "#c026d3"
+    ];
+
+    const sparkleEmojis = ["✨", "👑", "🙌", "🔥", "🙏", "😂", "💎", "🎉", "🕊️", "⭐"];
+
+    let clickCount = 0;
+    let hasCelebrated = false;
+    const REQUIRED_CLICKS = 15;
+
+    const praiseLayer = document.getElementById('praise-layer');
+    const gifWrapper = document.getElementById('gif-wrapper');
+    const modal = document.getElementById('chosen-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+
+    function randomBetween(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function spawnPraise(originX, originY) {
+        const word = document.createElement('div');
+        word.className = 'praise-word';
+
+        let text = pick(praisePhrases);
+        if (Math.random() < 0.35) {
+            text += ' ' + pick(sparkleEmojis);
+        }
+        word.textContent = text;
+
+        const font = pick(fontFamilies);
+        const color = pick(colors);
+        const size = randomBetween(16, 34);
+        const rot = randomBetween(-18, 18);
+
+        word.style.fontFamily = font;
+        word.style.color = color;
+        word.style.fontSize = size + 'px';
+        word.style.setProperty('--rot', rot + 'deg');
+
+        const spreadX = randomBetween(-160, 160);
+        const spreadY = randomBetween(-60, 60);
+        const left = Math.min(Math.max(originX + spreadX, 20), window.innerWidth - 20);
+        const top = Math.min(Math.max(originY + spreadY, 20), window.innerHeight - 40);
+
+        word.style.left = left + 'px';
+        word.style.top = top + 'px';
+
+        praiseLayer.appendChild(word);
+        setTimeout(() => word.remove(), 1900);
+    }
+
+    function celebrateChosenOne() {
+        hasCelebrated = true;
+        modal.classList.add('show');
+    }
+
+    gifWrapper.addEventListener('click', (e) => {
+        const rect = gifWrapper.getBoundingClientRect();
+        const originX = rect.left + rect.width / 2;
+        const originY = rect.top + rect.height / 2;
+
+        // Разом выбрасываем несколько фраз для эффекта "вскакивания"
+        const burst = Math.floor(randomBetween(2, 4));
+        for (let i = 0; i < burst; i++) {
+            setTimeout(() => spawnPraise(originX, originY), i * 90);
+        }
+
+        clickCount++;
+
+        if (clickCount >= REQUIRED_CLICKS && !hasCelebrated) {
+            setTimeout(celebrateChosenOne, 400);
+        }
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+</script>
 
 </body>
 </html>
