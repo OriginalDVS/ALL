@@ -119,15 +119,15 @@
         </div>
         <!-- Скроет пустой квадрат, если гифка еще не загружена -->
 
-        <!-- Контейнер для блоков-ссылок -->
-        <div class="flex flex-col md:flex-row flex-wrap justify-center gap-8 max-w-6xl">
+        <!-- Контейнер для блоков-ссылок: 5 карточек, flex-wrap с центрированием красиво распределяет 3+2 -->
+        <div class="flex flex-col md:flex-row flex-wrap justify-center gap-8 max-w-5xl">
 
             <!-- Блок 1: Документы для транспортных компании -->
             <a href="https://originaldvs.github.io/Transportnaya/"
                target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10
+                 block w-80 p-10
                  bg-blue-600 text-white
                  rounded-2xl shadow-xl
                  transform transition-all duration-300 ease-in-out
@@ -144,7 +144,7 @@
                target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10
+                 block w-80 p-10
                  bg-yellow-500 text-white
                  rounded-2xl shadow-xl
                  transform transition-all duration-300 ease-in-out
@@ -161,7 +161,7 @@
                target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10
+                 block w-80 p-10
                  bg-green-600 text-white
                  rounded-2xl shadow-xl
                  transform transition-all duration-300 ease-in-out
@@ -178,7 +178,7 @@
                target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10
+                 block w-80 p-10
                  bg-pink-600 text-white
                  rounded-2xl shadow-xl
                  transform transition-all duration-300 ease-in-out
@@ -195,7 +195,7 @@
                target="_blank"
                rel="noopener noreferrer"
                class="
-                 block w-72 p-10
+                 block w-80 p-10
                  bg-indigo-600 text-white
                  rounded-2xl shadow-xl
                  transform transition-all duration-300 ease-in-out
@@ -204,23 +204,6 @@
                ">
                 <h2 class="text-2xl font-bold text-center">
                     VinDecoderPro
-                </h2>
-            </a>
-
-               <!-- Блок 6: Генератор Договоров -->
-            <a href="https://originaldvs.github.io/dogovor/"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="
-                 block w-72 p-10
-                 bg-orange-600 text-white
-                 rounded-2xl shadow-xl
-                 transform transition-all duration-300 ease-in-out
-                 hover:scale-105 hover:shadow-2xl hover:bg-orange-700
-                 flex items-center justify-center
-               ">
-                <h2 class="text-2xl font-bold text-center">
-                    Разное
                 </h2>
             </a>
 
@@ -316,9 +299,14 @@
             и лёгкое чувство гордости за проделанную работу.
         </p>
         <p class="text-sm text-gray-400 mb-6">Слава Дамиру. Всегда. Во веки веков. 👑</p>
-        <button id="close-modal" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
-            Принять свою судьбу
-        </button>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="zal-damira.html" class="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-xl transition-colors text-center">
+                Войти в Зал Дамира →
+            </a>
+            <button id="close-modal" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl transition-colors">
+                Пока не готов
+            </button>
+        </div>
     `;
 
     const tier2Html = `
@@ -343,9 +331,14 @@
             </p>
         </div>
         <p class="text-sm text-gray-400 mb-6">Дамир заметил тебя. Дамир доволен. 🔱</p>
-        <button id="close-modal" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-xl transition-colors">
-            Принять титул
-        </button>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="zal-damira.html" class="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-xl transition-colors text-center">
+                Войти в Зал Дамира →
+            </a>
+            <button id="close-modal" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl transition-colors">
+                Пока не готов
+            </button>
+        </div>
     `;
 
     const praiseLayer = document.getElementById('praise-layer');
